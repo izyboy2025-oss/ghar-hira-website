@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ghar Hira School</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="icon" type="image/png" href="pics/logo.png"/>
+</head>
+<body>
+
+<!-- NAVIGATION BAR -->
+<nav>
+  <a href="#home" class="nav-logo">
+    <div class="nav-logo-icon"><img src="pics/logo.png" alt="Ghar Hira Logo" id="logo"/></div>
+    <div class="nav-logo-text">
+      Ghar Hira Technical & Vocational Institute
+      <span>Empowering Skills, Building Future</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#programs">Programs</a></li>
+    <li><a href="#news">News</a></li>
+    <li><a href="#downloads">Downloads</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta nav-links">Apply Now</a>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO Section -->
+<section class="hero" id="home">
+  <div class="hero-pattern"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Established 2010 · Jasikan, Ghana</div>
+    <h1>Nurturing Minds,<br>Building <em>Character</em></h1>
+    <p class="hero-sub">Ghar Hira School blends academic excellence with Islamic values, preparing students to lead with knowledge, integrity, and purpose in a changing world.</p>
+    <div class="hero-btns">
+      <a href="#programs" class="btn-primary">Explore Programs</a>
+      <a href="#contact" class="btn-outline">Apply for Admission</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="hero-stat-num">950+</div>
+        <div class="hero-stat-label">Students enrolled</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">60+</div>
+        <div class="hero-stat-label">Qualified teachers</div>
+      </div>
+      <div>
+        <div class="hero-stat-num">15+</div>
+        <div class="hero-stat-label">Years of excellence</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT  Section -->
+<section class="about" id="about">
+  <div class="section-eyebrow">Who We Are</div>
+  <div class="section-title">Rooted in Knowledge,<br>Guided by Faith</div>
+  <div class="divider"></div>
+  <div class="about-grid">
+    <div class="about-img-wrap">
+      <div class="about-img-box">
+        <img src="pics/pass_rate.jpeg" alt="Ghar Hira School Building" class="pass_rate"/>
+      </div>
+      <div class="about-badge">
+        <span class="about-badge-num">98%</span>
+        <span class="about-badge-label">Pass Rate 2024</span>
+      </div>
+    </div>
+    <div>
+      <p style="font-size:0.97rem;line-height:1.8;color:var(--text-muted);margin-bottom:1.2rem;">
+        Named after the sacred Cave of Hira where knowledge first descended, Ghar Hira School has been a beacon of learning in Accra since 2010. We offer a rich curriculum that weaves together national academic standards and Islamic education — forming students who excel both in the classroom and in character.
+      </p>
+      <p style="font-size:0.97rem;line-height:1.8;color:var(--text-muted);margin-bottom:1.8rem;">
+        Our dedicated teachers, modern facilities, and vibrant community create an environment where curiosity thrives and every student is seen, supported, and challenged to reach their full potential.
+      </p>
+      <div class="about-pills">
+        <span class="pill">Academic Excellence</span>
+        <span class="pill">Islamic Values</span>
+        <span class="pill">Critical Thinking</span>
+        <span class="pill">Community Spirit</span>
+        <span class="pill">Modern Facilities</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS SECTIONS-->
+<section class="programs" id="programs">
+  <div class="section-eyebrow">Academic Offerings</div>
+  <div class="section-title">Browse Our Programs</div>
+  <div class="divider"></div>
+  <p class="section-sub">From Quranic sciences to STEM and the arts — discover the full range of subjects we offer across all levels.</p>
+
+  <div class="filter-bar">
+    <button class="filter-btn active" onclick="filterCourses('all',this)">All Programs</button>
+    <button class="filter-btn" onclick="filterCourses('islamic',this)">Islamic Studies</button>
+    <button class="filter-btn" onclick="filterCourses('language',this)">Languages</button>
+    <button class="filter-btn" onclick="filterCourses('science',this)">Science & Maths</button>
+    <button class="filter-btn" onclick="filterCourses('humanities',this)">Humanities</button>
+    <button class="filter-btn" onclick="filterCourses('tech',this)">Technology & Arts</button>
+  </div>
+
+  <div class="courses-grid" id="courses-grid">
+
+    <div class="course-card" data-cat="islamic">
+      <div class="course-header">
+        <span class="course-tag tag-islamic">Islamic Studies</span>
+        <div class="course-title">Quranic Sciences</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Memorisation (Hifz), Tajweed, and Tafsir covering the methodology of Quranic recitation and interpretation.</p>
+        <div class="course-meta">
+          <span class="course-level">All Levels</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="islamic">
+      <div class="course-header">
+        <span class="course-tag tag-islamic">Islamic Studies</span>
+        <div class="course-title">Fiqh & Aqeedah</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Islamic jurisprudence, theology, and ethics — grounding students in the principles of Islamic law and belief.</p>
+        <div class="course-meta">
+          <span class="course-level">JHS – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="islamic">
+      <div class="course-header">
+        <span class="course-tag tag-islamic">Islamic Studies</span>
+        <div class="course-title">Seerah & Hadith</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Study of the Prophet's life, companions, and authenticated sayings — connecting history with practical guidance.</p>
+        <div class="course-meta">
+          <span class="course-level">JHS – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="language">
+      <div class="course-header">
+        <span class="course-tag tag-language">Languages</span>
+        <div class="course-title">Arabic Language</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Classical and Modern Standard Arabic — reading, writing, speaking, and comprehension from beginner to advanced.</p>
+        <div class="course-meta">
+          <span class="course-level">All Levels</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="language">
+      <div class="course-header">
+        <span class="course-tag tag-language">Languages</span>
+        <div class="course-title">English Language</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Comprehensive English covering grammar, composition, literature, and public speaking aligned with WAEC standards.</p>
+        <div class="course-meta">
+          <span class="course-level">All Levels</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="science">
+      <div class="course-header">
+        <span class="course-tag tag-science">Science & Maths</span>
+        <div class="course-title">Mathematics</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Core and elective mathematics including algebra, calculus, statistics, and problem-solving for BECE and WASSCE.</p>
+        <div class="course-meta">
+          <span class="course-level">Primary – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="science">
+      <div class="course-header">
+        <span class="course-tag tag-science">Science & Maths</span>
+        <div class="course-title">Physics</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Mechanics, electricity, waves, and thermodynamics with practical lab sessions and examination preparation.</p>
+        <div class="course-meta">
+          <span class="course-level">JHS – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="science">
+      <div class="course-header">
+        <span class="course-tag tag-science">Science & Maths</span>
+        <div class="course-title">Chemistry & Biology</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Integrated natural sciences covering organic chemistry, cell biology, genetics, and ecology with laboratory work.</p>
+        <div class="course-meta">
+          <span class="course-level">JHS – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="humanities">
+      <div class="course-header">
+        <span class="course-tag tag-humanities">Humanities</span>
+        <div class="course-title">History & Geography</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Ghana and world history, physical and human geography, with emphasis on African heritage and global citizenship.</p>
+        <div class="course-meta">
+          <span class="course-level">Primary – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="humanities">
+      <div class="course-header">
+        <span class="course-tag tag-humanities">Humanities</span>
+        <div class="course-title">Social Studies</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Civics, economics, cultural studies, and environmental awareness — developing socially responsible citizens.</p>
+        <div class="course-meta">
+          <span class="course-level">Primary – JHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="tech">
+      <div class="course-header">
+        <span class="course-tag tag-tech">Technology & Arts</span>
+        <div class="course-title">ICT & Computer Science</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Digital literacy, programming fundamentals, Microsoft Office, and internet safety for the modern learner.</p>
+        <div class="course-meta">
+          <span class="course-level">JHS – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card" data-cat="tech">
+      <div class="course-header">
+        <span class="course-tag tag-tech">Technology & Arts</span>
+        <div class="course-title">Visual Arts & Crafts</div>
+      </div>
+      <div class="course-body">
+        <p class="course-desc">Drawing, painting, textiles, and Islamic calligraphy — cultivating creativity and cultural expression in every student.</p>
+        <div class="course-meta">
+          <span class="course-level">Primary – SHS</span>
+          <a href="#contact" class="course-link">Enquire →</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- NEWS SECTION-->
+<section class="news" id="news">
+  <div class="section-eyebrow">Latest Updates</div>
+  <div class="section-title">News & Announcements</div>
+  <div class="divider"></div>
+  <div class="news-grid">
+    <div class="news-main">
+      <span class="news-badge">Featured</span>
+      <h3>Ghar Hira Students Top Regional BECE Rankings for Third Consecutive Year</h3>
+      <p>We are proud to announce that our Junior High School graduates achieved top positions in the 2024 Basic Education Certificate Examinations across the Greater Accra region, with 14 students scoring straight A's.</p>
+      <span class="news-date">June 3, 2025</span>
+    </div>
+    <div class="news-list">
+      <div class="news-item">
+        <div class="news-item-date">May 20, 2025</div>
+        <h4>2025/2026 Admissions Now Open</h4>
+        <p>Applications for the new academic year are open. Download the form below or visit the admissions office.</p>
+      </div>
+      <div class="news-item">
+        <div class="news-item-date">April 14, 2025</div>
+        <h4>Inter-School Quran Recitation Competition</h4>
+        <p>Our students won 3 gold awards at the annual Greater Accra Quran recitation championship.</p>
+      </div>
+      <div class="news-item">
+        <div class="news-item-date">March 28, 2025</div>
+        <h4>New ICT Lab Officially Opened</h4>
+        <p>A fully equipped 40-station computer lab is now available to all JHS and SHS students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOADS SECTION -->
+<section class="downloads" id="downloads">
+  <div class="section-eyebrow">Resources</div>
+  <div class="section-title">Downloadable Documents</div>
+  <div class="divider"></div>
+  <p class="section-sub">Access important school documents, forms, and schedules. Click any card to download.</p>
+  <div class="docs-grid">
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">School Prospectus</div>
+      <div class="doc-meta">PDF · 2.4 MB · Updated 2025</div>
+      <a href="Exams Timetable.pdf" class="doc-d1" download="Exams Timetable.pdf" target="_blank">↓ Download Prospectus (PDF)`</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">Admission Application Form</div>
+      <div class="doc-meta">PDF · 380 KB · 2025/2026</div>
+      <a href="#" class="doc-dl" onclick="fakeDownload(event,'GH_Admission_Form_2025.pdf')">⬇ Download</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">Academic Calendar 2025/26</div>
+      <div class="doc-meta">PDF · 210 KB · Full Year</div>
+      <a href="#" class="doc-dl" onclick="fakeDownload(event,'GH_Academic_Calendar_2025_26.pdf')">⬇ Download</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">Fee Schedule 2025/2026</div>
+      <div class="doc-meta">PDF · 150 KB · All Levels</div>
+      <a href="#" class="doc-dl" onclick="fakeDownload(event,'GH_Fee_Schedule_2025.pdf')">⬇ Download</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">School Rules & Code of Conduct</div>
+      <div class="doc-meta">PDF · 290 KB · 2025 Edition</div>
+      <a href="#" class="doc-dl" onclick="fakeDownload(event,'GH_Student_Handbook.pdf')">⬇ Download</a>
+    </div>
+
+    <div class="doc-card">
+      <div class="doc-icon"><i class="fa-regular fa-file"></i></div>
+      <div class="doc-name">Scholarship Application</div>
+      <div class="doc-meta">PDF · 320 KB · Merit & Need-based</div>
+      <a href="#" class="doc-dl" onclick="fakeDownload(event,'GH_Scholarship_Form_2025.pdf')">⬇ Download</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- GALLERY SECTION -->
+<section class="gallery" id="gallery">
+  <div class="section-eyebrow">Life at Ghar Hira</div>
+  <div class="section-title">Photo Gallery</div>
+  <div class="divider"></div>
+  <div class="gallery-grid">
+    <div class="gallery-item">
+      <div class="gallery-placeholder">
+        <img src="pics/classrooms.jpeg" width="500" height="250"/>
+      </div>
+      <span class="gallery-label">Campus</span>
+    </div>
+    <div class="gallery-item" style="background:#083D27;">
+      <div class="gallery-placeholder">
+        <img src="pics/practicals.jpeg" width="500" height="250"/>
+      </div>
+      <span class="gallery-label">Classrooms</span>
+    </div>
+    <div class="gallery-item" style="background:#126B45;">
+      <div class="gallery-placeholder">
+        <img src="pics/students.jpeg" width="500" height="250"/>
+      </div>
+      <span class="gallery-label">Practical Labs</span>
+    </div>
+    <div class="gallery-item" style="background:#0A4D30;">
+      <div class="gallery-placeholder">
+        <img src="pics/entrance.jpeg" width="500" height="250"/>
+      </div>
+      <span class="gallery-label">Entrance</span>
+    </div>
+    <div class="gallery-item" style="background:#C49A2E;">
+      <div class="gallery-placeholder">
+        <img src="pics/pass_rate.jpeg" width="500" height="250"/>
+      </div>
+      <span class="gallery-label">Graduation</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION-->
+<section class="contact" id="contact">
+  <div class="section-eyebrow">Get in Touch</div>
+  <div class="section-title">Contact & Admissions</div>
+  <div class="divider"></div>
+  
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-item-icon">📍</div>
+        <div>
+          <h4>Address</h4>
+          <p>Behind Jasikan Hospital, Off Saw mill junction<br>Oti Region, Ghana</p>
+        </div>
+      </div>
+
+      <!-- Map Section -->
+      <div class="map-container" style="margin: 20px 0; border-radius: 12px; overflow: hidden; height: 250px; border: 2px solid var(--green-dark);">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1627.9662614480515!2d0.4645586999999895!3d7.4012867000000035!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1027b7995e33ffff%3A0xeca80a8876f1e64e!2sJasikan%20Municipal%20Hospital!5e1!3m2!1sen!2sgh!4v1781262166824!5m2!1sen!2sgh" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fa-solid fa-phone" style="color: rgb(248, 128, 0);"></i></div>
+        <div>
+          <h4>Phone</h4>
+          <p>+233 540 925 217<br>+233 592 483 106</p>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fa-solid fa-envelope" style="color: rgb(2, 255, 15);"></i></div>
+        <div>
+          <h4>Email</h4>
+          <p>info@gharhiraschool.edu.gh<br>admissions@gharhiraschool.edu.gh</p>
+        </div>
+      </div>
+      
+      <div class="contact-item">
+        <div class="contact-item-icon"><i class="fa-solid fa-clock" style="color: rgb(74, 0, 248);"></i></div>
+        <div>
+          <h4>Office Hours</h4>
+          <p>Monday – Friday: 7:30 AM – 4:00 PM<br>Saturday: 9:00 AM – 12:00 PM</p>
+        </div>
+      </div>
+
+      <div>
+        <p style="font-size:0.82rem;font-weight:700;color:var(--green-dark);margin-bottom:10px;letter-spacing:1px;text-transform:uppercase;">Follow Us</p>
+        <div class="social-row">
+          <a href="#" class="social-btn social-fb" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+          <a href="#" class="social-btn social-ig" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="white" stroke-width="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="white" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="white" stroke-width="2"/></svg></a>
+          <a href="#" class="social-btn social-tw" aria-label="Twitter/X"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" class="social-btn social-yt" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="var(--green-dark)"/></svg></a>
+          <a href="https://wa.me/233240000000" class="social-btn social-wa" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.99 2C6.478 2 2 6.478 2 11.99c0 1.908.507 3.7 1.393 5.24L2 22l4.91-1.377A9.988 9.988 0 0 0 11.99 22C17.522 22 22 17.512 22 11.99 22 6.478 17.512 2 11.99 2zm0 18.182a8.182 8.182 0 1 1 0-16.364 8.182 8.182 0 0 1 0 16.364z" fill="none" stroke="white" stroke-width="0.5"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <h3 style="font-family:'Playfair Display',serif;font-size:1.25rem;color:var(--green-dark);margin-bottom:20px;">Send an Enquiry</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Amina"/>
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Salamatu"/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Phone Number</label>
+        <input type="tel" placeholder="+233 000 000 000"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <select>
+          <option>Admission Enquiry</option>
+          <option>Fee Information</option>
+          <option>Program Details</option>
+          <option>Scholarship Information</option>
+          <option>General Enquiry</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="btn-submit" onclick="handleSubmit()">Send Message</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER SECTION-->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">
+        <div class="nav-logo-icon"><img src="pics/logo.png" alt="Ghar Hira Logo" id="logo"/></div>
+        <div class="nav-logo-text">
+          Ghar Hira
+          <span>School of Excellence</span>
+        </div>
+      </div>
+      <p>Nurturing minds and building character through academic excellence and Islamic values since 2010.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#about">About Us</a>
+      <a href="#programs">Programs</a>
+      <a href="#news">News</a>
+      <a href="#downloads">Downloads</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Programs</h4>
+      <a href="#programs">Islamic Studies</a>
+      <a href="#programs">Arabic Language</a>
+      <a href="#programs">Sciences & Maths</a>
+      <a href="#programs">ICT & Technology</a>
+      <a href="#programs">Humanities</a>
+      <a href="#programs">Visual Arts</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Ghar Hira School. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Instagram">in</a>
+      <a href="#" aria-label="Twitter">𝕏</a>
+      <a href="#" aria-label="YouTube">▶</a>
+    </div>
+  </div>
+</footer>
+
+<!-- WHATSAPP FLOATING ICON-->
+<a href="https://wa.me/233540925217" class="wa-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <div class="wa-tooltip">Chat with us on WhatsApp</div>
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<script src="index.js"></script>
+</body>
+</html>
