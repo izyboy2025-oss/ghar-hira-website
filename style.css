@@ -1,4 +1,4 @@
- :root {
+:root {
     --green-dark: #083D27;
     --green: #0D5C3B;
     --green-mid: #126B45;
@@ -12,7 +12,7 @@
     --white: #FFFFFF;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth;overflow-x:hidden;}
   body{font-family:'Nunito',sans-serif;color:var(--text);background:var(--cream);}
 
   /* ── NAV ── */
@@ -579,7 +579,7 @@ nav {
 
 
   /* ── CONTACT ── */
-  .contact{background:var(--white);}
+  .contact{background:var(--white);overflow-x:hidden;}
   .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-top:3rem;}
   .contact-info{display:flex;flex-direction:column;gap:22px;}
   .contact-item{display:flex;gap:14px;align-items:flex-start;}
