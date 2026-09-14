@@ -33,27 +33,82 @@ function fakeDownload(e, filename) {
     }
   });
 
-function handleSubmit() {
-    // Extract the values from the html fields
-    const firstName = document.querySelector('input[placeholder="Amina"]').value;
-    const lastName = document.querySelector('input[placeholder="Mensah"]').value;
-    const email = document.querySelector('input[type="email"]').value;
-    const phone = document.querySelector('input[type="tel"]').value;
-    const subject = document.querySelector('select').value;
-    const message = document.querySelector('textarea').value;
+function playNotificationSound() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
 
-    //This is the recepient email
-    const recipient = "admissions@gharhiraschool.edu.gh";
+    // Two soft, low-pitched notes (a gentle "ding-dong") rather than a sharp beep
+    const notes = [
+      { freq: 392, start: 0 },      // G4
+      { freq: 523.25, start: 0.12 } // C5
+    ];
 
-    const body = `Name: ${firstName} ${lastName}%0D%0A` +
-                 `Phone: ${phone}%0D%0A` +
-                 `Email: ${email}%0D%0A%0D%0A` +
-                 `Message:%0D%0A${message}`;
+    notes.forEach(note => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = note.freq;
 
-    const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const t = now + note.start;
+      gain.gain.setValueAtTime(0, t);
+      gain.gain.linearRampToValueAtTime(0.12, t + 0.03); // soft volume, gentle attack
+      gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.5); // smooth fade out
 
-    window.location.href = mailtoLink;
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start(t);
+      osc.stop(t + 0.5);
+    });
+  } catch (e) {
+    // Audio isn't critical to the form working, so fail silently
+  }
 }
+
+function showToast(text, isError) {
+  if (!isError) {
+    playNotificationSound();
+  }
+  const msg = document.createElement('div');
+  msg.textContent = text;
+  msg.style.cssText = 'position:fixed;top:24px;left:50%;transform:translateX(-50%);background:' +
+    (isError ? '#B3261E' : '#0D5C3B') +
+    ';color:white;padding:12px 24px;border-radius:8px;font-family:Nunito,sans-serif;font-size:0.85rem;font-weight:600;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,0.2);';
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 3500);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('contact-form');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const submitBtn = form.querySelector('.btn-submit');
+    const originalText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    fetch(form.action, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { 'Accept': 'application/json' }
+    })
+      .then(response => response.json())
+      .then(data => {
+        showToast('✓ Message sent! We will get back to you soon.', false);
+        form.reset();
+      })
+      .catch(error => {
+        showToast('Something went wrong. Please try again.', true);
+      })
+      .finally(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalText;
+      });
+  });
+});
 
 
 function toggleMenu() {
