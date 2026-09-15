@@ -1,4 +1,5 @@
 :root {
+    color-scheme: light only;
     --green-dark: #083D27;
     --green: #0D5C3B;
     --green-mid: #126B45;
@@ -23,75 +24,55 @@
     background-color: var(--green-dark);
     display:flex;align-items:center;
     justify-content:space-between;
-    padding:0 5%;
-    height:95px;
+    flex-wrap:nowrap;
+    padding:12px 5%;
+    min-height:95px;
     border-bottom:1px solid rgba(255, 255, 255, 0.653);
+    transition: all 0.3s ease;
   }
-
 
 .nav-scrolled {
-  background: rgba(20, 30, 25, 0.8) !important; 
+  background: rgba(20, 30, 25, 0.8) !important;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  height: 70px;
+  min-height: 70px;
+  padding-top:8px;
+  padding-bottom:8px;
   transition: all 0.3s ease;
   top: 0.3rem;
-  margin-left: 1rem;
+  margin-left: clamp(0.35rem, 2vw, 1rem);
   font-size: 0.95rem;
-  margin-right: 1rem;
-  border-radius: 16px; 
+  margin-right: clamp(0.35rem, 2vw, 1rem);
+  border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-
-  .nav-logo-text{
-    color:var(--white);
-    font-family:'Playfair Display',serif;
-    font-size:1.10rem;
-    font-weight:700;
-    line-height:1.2;
-}
-  .nav-logo-text span{
-    display:block;
-    font-family:'Nunito',sans-serif;
-    font-size:0.45rem;
-    font-weight:400;
-    color:var(--gold);
-    letter-spacing:2px;
-    text-transform:uppercase;
-    margin-top:0.3rem;
-  }
-  #logo{
-    width:40px;
-    height:40px;
-  }
-  .nav-logo-icon{
-    width:3.0rem;
-    height:3.0rem;
-    border-radius:50%;
-    background: white;
-    display:flex;align-items:center;justify-content:center;
-    font-size:20px;font-weight:700;color:var(--green-dark);
-  }
-
 }
 
-
-nav {
-  transition: all 0.3s ease;
-}
+/* Plain descendant selectors (not nested) so this works on every browser.
+   clamp() here (instead of one fixed size) is what makes the scrolled/pill
+   state itself scale on every phone width — previously these fixed values
+   had higher specificity than the mobile breakpoint rules below, so
+   scrolling could re-enlarge the logo past what a small screen could fit. */
+.nav-scrolled .nav-logo-text{ font-size:clamp(0.78rem, 0.66rem + 0.9vw, 1.10rem); }
+.nav-scrolled .nav-logo-text span{ font-size:clamp(0.42rem, 0.37rem + 0.35vw, 0.45rem); }
+.nav-scrolled #logo{ width:clamp(34px, 24px + 3.2vw, 40px); height:clamp(34px, 24px + 3.2vw, 40px); }
+.nav-scrolled .nav-logo-icon{ width:clamp(2.3rem, 1.7rem + 4vw, 3.0rem); height:clamp(2.3rem, 1.7rem + 4vw, 3.0rem); }
 
   #logo{
     width:58px;
     height:58px;
+    transition: width 0.3s ease, height 0.3s ease;
   }
 
-  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;}
+  .nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0;flex-shrink:1;}
   .nav-logo-icon{
     width:3.9rem;
     height:3.9rem;
+    flex-shrink:0;
     border-radius:50%;
     background: white;
     display:flex;align-items:center;justify-content:center;
     font-size:20px;font-weight:700;color:var(--green-dark);
+    transition: width 0.3s ease, height 0.3s ease;
   }
   .nav-logo-text{
     color:var(--white);
@@ -99,6 +80,8 @@ nav {
     font-size:1.25rem;
     font-weight:700;
     line-height:1.2;
+    min-width:0;
+    transition: font-size 0.3s ease;
 }
   .nav-logo-text span{
     display:block;
@@ -109,18 +92,80 @@ nav {
     letter-spacing:2px;
     text-transform:uppercase;
     margin-top:0.3rem;
+    transition: font-size 0.3s ease;
   }
+  .nav-right{display:flex;align-items:center;gap:18px;}
+  .nav-menu{display:flex;align-items:center;gap:28px;}
   .nav-links{display:flex;align-items:center;gap:28px;list-style:none;}
   .nav-links a{color:rgba(255,255,255,0.82);text-decoration:none;font-size:0.88rem;font-weight:500;transition:color 0.2s;}
-  .nav-links a:hover{color:yellow}
+  .nav-links a:hover{color:var(--gold);}
   .nav-cta{
     background:var(--gold);color:var(--green-dark);
     padding:8px 18px;border-radius:6px;font-size:0.85rem;font-weight:700;
     text-decoration:none;transition:background 0.2s;
+    white-space:nowrap;
   }
   .nav-cta:hover{background:#d9aa38;}
-  .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;}
-  .hamburger span{display:block;width:24px;height:2px;background:var(--white);border-radius:2px;}
+
+  /* Theme toggle — always visible in the navbar (unlike the hamburger,
+     which only shows up once the nav collapses). Sits on the permanently
+     dark-green nav background in both light and dark site mode, so a
+     single style works for both without needing a dark-mode override. */
+  .theme-toggle{
+    display:flex;align-items:center;justify-content:center;
+    width:38px;height:38px;min-width:38px;
+    border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    border:1.5px solid rgba(255,255,255,0.35);
+    color:var(--gold);
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    transition:background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  }
+  .theme-toggle:hover{background:rgba(255,255,255,0.16);border-color:var(--gold);transform:translateY(-2px);}
+  .theme-toggle:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .theme-toggle svg{
+    width:18px;height:18px;
+    stroke:currentColor;fill:none;
+    stroke-width:2;stroke-linecap:round;stroke-linejoin:round;
+  }
+  .theme-toggle .icon-sun{display:none;}
+
+  /* Hamburger is a real <button> now — strip default button chrome */
+  .hamburger{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:6px;
+    width:34px;
+    height:34px;
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+    position:relative;
+    z-index:101;
+    border-radius:8px;
+    transition:background 0.2s ease;
+  }
+  .hamburger:hover{background:rgba(255,255,255,0.08);}
+  .hamburger:focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  .hamburger span{
+    display:block;
+    width:22px;
+    height:2px;
+    background:var(--white);
+    border-radius:2px;
+    transition:transform 0.3s ease, opacity 0.2s ease, background 0.3s ease;
+  }
+  .hamburger:hover span{background:var(--gold);}
+  /* Animate the three bars into an X when the menu is open */
+  .hamburger.active span:nth-child(1){transform:translateY(8px) rotate(45deg);}
+  .hamburger.active span:nth-child(2){opacity:0;transform:scaleX(0);}
+  .hamburger.active span:nth-child(3){transform:translateY(-8px) rotate(-45deg);}
+  .hamburger.active:hover span{background:var(--gold);}
 
   /* ── HERO ── */
   .hero{
@@ -261,42 +306,22 @@ nav {
     height:auto;
     object-fit:cover;
     border-radius: 10px;
+    display: block;
+    transition: transform 0.4s ease;
   }
 
-  .pass_rate {
-  animation: slow-pulse 8s ease-in-out infinite;
-  display: block;
-  will-change: transform;
-}
-
-@keyframes slow-pulse {
-  0%, 100% {
-    transform: scale(1);
+  /* Subtle zoom only on hover, not a constant animation - calmer for an about-us photo */
+  .about-img-box:hover .pass_rate {
+    transform: scale(1.03);
   }
-  25% {
-    transform: scale(1.05);
-  }
-  50% {
-    transform: scale(1.1);
-  }
-  75% {
-    transform: scale(1.05); 
-  }
-}
-
-
 
   .about {
-  /* Use a vibrant, semi-transparent color palette for subtlety */
-  background: linear-gradient(45deg, white, rgb(218, 218, 218), rgb(243, 236, 236), rgb(206, 206, 206));
-  background-size: 400% 400%;
-  
-  /* The animation: 15 seconds for a very slow, smooth effect */
-  animation: gradient-flow 15s ease infinite;
-  
-  /* Optional: Keep it "not fully visible" by adding an overlay */
-  position: relative;
-}
+    /* Slow, subtle gradient using the brand's own cream/gold tones instead of grey */
+    background: linear-gradient(45deg, var(--cream), var(--gold-light), var(--cream-dark), var(--green-light));
+    background-size: 400% 400%;
+    animation: gradient-flow 20s ease infinite;
+    position: relative;
+  }
 
 
 /* Create the movement */
@@ -334,22 +359,6 @@ nav {
   }
 
 
-/* Initial state: Hidden and pushed down slightly */
-.scroll-hidden {
-  opacity: 0;
-  transform: translateY(40px);
-  /* The transition controls the speed and easing of the animation */
-  transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), 
-              transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-/* Final state: Fully visible and in original position */
-.scroll-show {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
 
 
 
@@ -376,8 +385,16 @@ nav {
     border:1px solid #e8e2d6;transition:transform 0.2s,box-shadow 0.2s;
   }
   .course-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(13,92,59,0.1);}
+  .course-cover{
+    width:100%;height:150px;overflow:hidden;position:relative;background:var(--green-light);
+  }
+  .course-cover img{
+    width:100%;height:100%;object-fit:cover;display:block;
+    transition:transform 0.45s ease;
+  }
+  .course-card:hover .course-cover img{transform:scale(1.06);}
   .course-header{
-    padding:22px 22px 16px;
+    padding:20px 22px 16px;
     border-bottom:1px solid #f0ece2;
   }
   .course-tag{
@@ -400,6 +417,22 @@ nav {
   }
   .hidden-course{display:none!important;}
 
+  /* Programs preview: collapse everything past the first row of cards
+     until the visitor asks to see the rest, so the section doesn't
+     dominate the page on first load. */
+  .courses-grid.collapsed .course-extra{display:none;}
+  .programs-view-all{display:flex;justify-content:center;margin-top:2.2rem;}
+  .btn-view-all{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 30px;border-radius:30px;
+    border:1.5px solid var(--green-dark);background:transparent;color:var(--green-dark);
+    font-family:'Nunito',sans-serif;font-size:0.88rem;font-weight:700;
+    cursor:pointer;transition:background 0.2s ease,color 0.2s ease;
+  }
+  .btn-view-all:hover{background:var(--green-dark);color:var(--white);}
+  .btn-view-all .chev{transition:transform 0.25s ease;}
+  .btn-view-all.expanded .chev{transform:rotate(180deg);}
+
 
 
 
@@ -409,8 +442,12 @@ nav {
   /* ── NEWS ── */
   .news{background:var(--white);}
   .news-grid{display:grid;grid-template-columns:2fr 1fr;gap:30px;margin-top:2.5rem;}
-  .news-main{background:var(--green-light);border-radius:16px;padding:32px;position:relative;overflow:hidden;}
-  .news-main::before{
+  .news-main{background:var(--green-light);border-radius:16px;position:relative;overflow:hidden;display:flex;flex-direction:column;}
+  .news-main-img{width:100%;height:210px;overflow:hidden;}
+  .news-main-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.5s ease;}
+  .news-main:hover .news-main-img img{transform:scale(1.04);}
+  .news-main-body{padding:26px 32px 30px;position:relative;flex:1;}
+  .news-main-body::before{
     content:'';position:absolute;top:-30px;right:-30px;
     width:150px;height:150px;background:var(--gold);opacity:0.1;border-radius:50%;
   }
@@ -418,23 +455,88 @@ nav {
     background:var(--gold);color:var(--green-dark);
     font-size:0.7rem;font-weight:700;padding:4px 10px;border-radius:4px;
     display:inline-block;margin-bottom:14px;letter-spacing:1px;text-transform:uppercase;
+    position:relative;
   }
-  .news-main h3{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--green-dark);font-weight:700;margin-bottom:10px;line-height:1.35;}
-  .news-main p{font-size:0.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:14px;}
+  .news-main h3{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--green-dark);font-weight:700;margin-bottom:10px;line-height:1.35;position:relative;}
+  .news-main p{font-size:0.9rem;color:var(--text-muted);line-height:1.65;margin-bottom:14px;position:relative;}
+  .news-main-meta{display:flex;align-items:center;justify-content:space-between;position:relative;}
   .news-date{font-size:0.75rem;color:var(--text-muted);font-weight:500;}
+  .news-link{
+    font-size:0.78rem;font-weight:700;color:var(--green-dark);
+    text-decoration:none;border-bottom:1.5px solid var(--gold);padding-bottom:1px;
+    transition:color 0.18s;
+    background:none;border-top:none;border-left:none;border-right:none;
+    padding-left:0;padding-right:0;font-family:'Nunito',sans-serif;cursor:pointer;
+  }
+  .news-link:hover{color:var(--green-mid);}
   .news-list{display:flex;flex-direction:column;gap:16px;}
-  .news-item{background:var(--cream);border-radius:12px;padding:18px;border:1px solid #e8e2d6;}
-  .news-item h4{font-size:0.92rem;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.4;}
-  .news-item p{font-size:0.8rem;color:var(--text-muted);line-height:1.55;}
+  .news-item{display:flex;gap:14px;background:var(--cream);border-radius:12px;padding:16px;border:1px solid #a19898;}
+  .news-item-thumb{width:64px;height:64px;min-width:64px;border-radius:10px;overflow:hidden;}
+  .news-item-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
+  .news-item-content{flex:1;min-width:0;}
+  .news-item-content h4{font-size:0.92rem;font-weight:700;color:var(--text);margin-bottom:6px;line-height:1.4;}
+  .news-item-content p{font-size:0.8rem;color:var(--text-muted);line-height:1.55;margin-bottom:8px;}
+  .news-item-content .news-link{font-size:0.74rem;}
   .news-item-date{font-size:0.72rem;color:var(--gold);font-weight:600;margin-bottom:6px;letter-spacing:0.5px;}
+  .news-item-tag{
+    font-size:0.6rem;letter-spacing:1px;text-transform:uppercase;font-weight:700;
+    padding:3px 9px;border-radius:20px;display:inline-block;margin-bottom:6px;
+  }
+  .tag-admissions{background:#FEF3E2;color:#8A5A00;}
+  .tag-competition{background:#F3EEFF;color:#5A2D8A;}
+  .tag-facilities{background:#EBF7F5;color:#0A5E55;}
+  .tag-academics{background:#E8F4EE;color:var(--green-dark);}
 
-.news-main, .news-item {
+  /* ── NEWS "READ MORE" MODAL ── */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:1000;
+    background:rgba(8,61,39,0.55);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    display:flex;align-items:center;justify-content:center;padding:20px;
+    opacity:0;visibility:hidden;
+    transition:opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+  .modal-overlay.active{
+    opacity:1;visibility:visible;
+    transition:opacity 0.25s ease, visibility 0s linear 0s;
+  }
+  .modal-box{
+    background:var(--white);border-radius:16px;width:100%;max-width:520px;
+    max-height:85vh;overflow-y:auto;position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.35);
+    transform:translateY(18px) scale(0.97);
+    transition:transform 0.25s ease;
+  }
+  .modal-overlay.active .modal-box{transform:translateY(0) scale(1);}
+  .modal-close{
+    position:absolute;top:12px;right:12px;z-index:2;
+    width:34px;height:34px;border-radius:50%;
+    background:rgba(255,255,255,0.92);border:none;
+    font-size:1.4rem;line-height:1;color:var(--green-dark);
+    display:flex;align-items:center;justify-content:center;cursor:pointer;
+    box-shadow:0 2px 10px rgba(0,0,0,0.18);
+    transition:background 0.2s;
+  }
+  .modal-close:hover{background:var(--white);}
+  .modal-img{width:100%;height:220px;overflow:hidden;background:var(--green-light);}
+  .modal-img img{width:100%;height:100%;object-fit:cover;display:block;}
+  .modal-body{padding:24px 28px 30px;}
+  .modal-body h3{
+    font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--green-dark);
+    font-weight:700;margin:10px 0 12px;line-height:1.35;
+  }
+  .modal-body p{font-size:0.92rem;color:var(--text-muted);line-height:1.7;}
+  body.modal-open{overflow:hidden;}
+
+/* Reveal-on-scroll animations. JS adds .reveal-up/.reveal-left/.reveal-right
+   right before observing an element, so if JS ever fails to run, elements
+   simply stay visible instead of being permanently hidden. */
+.reveal-up {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-
-.news-main.is-visible, .news-item.is-visible {
+.reveal-up.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -442,19 +544,6 @@ nav {
 .news-item:nth-child(1) { transition-delay: 0.2s; }
 .news-item:nth-child(2) { transition-delay: 0.4s; }
 .news-item:nth-child(3) { transition-delay: 0.6s; }
-
-.course-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.course-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-
 
 .course-card:nth-child(1) { transition-delay: 0.1s; }
 .course-card:nth-child(2) { transition-delay: 0.2s; }
@@ -477,7 +566,7 @@ nav {
     background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);
     border-radius:14px;padding:24px 22px;
     display:flex;flex-direction:column;gap:12px;
-    transition:background 0.2s;cursor:pointer;
+    transition:background 0.2s;
   }
   .doc-card:hover{background:rgba(255,255,255,0.12);}
   .doc-icon{
@@ -487,23 +576,11 @@ nav {
   }
   .doc-name{font-weight:700;color:var(--white);font-size:0.95rem;}
   .doc-meta{font-size:0.78rem;color:rgba(255,255,255,0.5);}
-  .doc-dl{
+  .doc-soon{
     display:inline-flex;align-items:center;gap:6px;
-    font-size:0.78rem;color:var(--gold);font-weight:600;
-    text-decoration:none;margin-top:auto;
+    font-size:0.78rem;color:rgba(255,255,255,0.55);font-weight:600;
+    margin-top:auto;
   }
-  .doc-dl:hover{text-decoration:underline;}
-
-.doc-card {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-}
-
-.doc-card.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
 
 .doc-card:nth-child(1) { transition-delay: 0.1s; }
 .doc-card:nth-child(2) { transition-delay: 0.2s; }
@@ -522,7 +599,7 @@ nav {
   .gallery-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    grid-template-rows:repeat(2,180px);
+    grid-auto-rows:220px;
     gap:14px;
     margin-top:2rem;
   }
@@ -533,7 +610,6 @@ nav {
     position:relative;
   }
   
-  .gallery-item:first-child{grid-column:1/2;grid-row:1/3;}
   .gallery-item .gallery-label{
     position:absolute;bottom:12px;left:14px;
     background:rgba(0,0,0,0.55);color:var(--white);
@@ -544,19 +620,10 @@ nav {
     opacity:1;
   }
 
-.gallery-item {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  overflow: hidden; /* Keeps the zoom effect inside the border */
-}
-
-.gallery-item.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   transition: transform 0.5s ease;
 }
 
@@ -586,6 +653,7 @@ nav {
   .contact-item-icon{
     width:42px;height:42px;min-width:42px;background:var(--green-light);border-radius:10px;
     display:flex;align-items:center;justify-content:center;font-size:18px;
+    color:var(--green-dark);
   }
   .contact-item h4{font-size:0.88rem;font-weight:700;color:var(--green-dark);margin-bottom:4px;}
   .contact-item p{font-size:0.85rem;color:var(--text-muted);line-height:1.55;}
@@ -611,11 +679,15 @@ nav {
   .form-group textarea{
     border:1.5px solid #ddd;border-radius:8px;padding:10px 14px;
     font-family:'Nunito',sans-serif;font-size:0.88rem;color:var(--text);
-    background:var(--white);outline:none;transition:border-color 0.2s;
+    background:var(--white);outline:none;
+    transition:border-color 0.3s ease, box-shadow 0.3s ease;
   }
   .form-group input:focus,
   .form-group select:focus,
-  .form-group textarea:focus{border-color:var(--green-mid);}
+  .form-group textarea:focus{
+    border-color:var(--green-dark);
+    box-shadow: 0 0 8px rgba(8, 61, 39, 0.2);
+  }
   .form-group textarea{resize:vertical;min-height:110px;}
   .btn-submit{
     width:100%;background:var(--green-dark);color:var(--white);
@@ -624,16 +696,19 @@ nav {
   }
   .btn-submit:hover{background:var(--green-mid);}
 
-.contact-info, .contact-form {
+/* Same safe pattern as .reveal-up: JS adds these classes right before
+   observing, so a JS failure just means no slide-in effect, not a hidden section. */
+.reveal-left {
   opacity: 0;
+  transform: translateX(-50px);
   transition: opacity 1s ease-out, transform 1s ease-out;
 }
-
-.contact-info { transform: translateX(-50px); }
-.contact-form { transform: translateX(50px); }
-
-
-.contact-info.is-visible, .contact-form.is-visible {
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+.reveal-left.is-visible, .reveal-right.is-visible {
   opacity: 1;
   transform: translateX(0);
 }
@@ -702,18 +777,106 @@ nav {
   .wa-float:hover .wa-tooltip{opacity:1;}
 
   /* ── MOBILE ── */
+
+  /* Tablet / small desktop: keep the full nav but tighten it up so six
+     links + the CTA + the long institute name don't crowd or wrap. */
+  @media(max-width:1180px){
+    nav{padding:0 4%;}
+    .nav-links{gap:16px;}
+    .nav-links a{font-size:0.82rem;}
+    .nav-logo-text{font-size:1.05rem;}
+    .nav-logo-text span{font-size:0.58rem;letter-spacing:1.2px;}
+  }
+
   @media(max-width:900px){
     .about-grid,.news-grid,.contact-grid{grid-template-columns:1fr;}
     .about-badge{right:10px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
-    .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-    .gallery-item:first-child{grid-column:auto;grid-row:auto;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
     .form-row{grid-template-columns:1fr;}
   }
-  @media(max-width:650px){
-    .nav-links{display:none;}
+
+  /* Below this, the nav switches to the hamburger + dropdown panel.
+     Anchoring .nav-menu to the <nav> itself (not the viewport) means it
+     always lines up correctly whether the nav is at full height or in
+     its scrolled/pill state, so opening it never shifts anything. */
+  @media(max-width:860px){
+    .nav-menu{
+      display:flex;
+      flex-direction:column;
+      align-items:stretch;
+      gap:6px;
+      position:absolute;
+      top:100%;
+      left:0;
+      right:0;
+      background:var(--green-dark);
+      padding:18px 6% 26px;
+      border-radius:0 0 16px 16px;
+      box-shadow:0 16px 32px rgba(0,0,0,0.28);
+      opacity:0;
+      visibility:hidden;
+      transform:translateY(-8px);
+      transition:opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0.25s;
+    }
+    .nav-menu.active{
+      opacity:1;
+      visibility:visible;
+      transform:translateY(0);
+      transition:opacity 0.25s ease, transform 0.25s ease, visibility 0s linear 0s;
+    }
+    .nav-links{flex-direction:column;align-items:stretch;gap:2px;width:100%;}
+    .nav-links a{
+      display:block;
+      width:100%;
+      padding:12px 4px;
+      font-size:1rem;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+    .nav-links li:last-child a{border-bottom:none;}
+    .nav-cta{
+      margin-top:14px;
+      text-align:center;
+      padding:12px 18px;
+    }
     .hamburger{display:flex;}
+
+    /* Once the hamburger takes over, nav-right stays a roughly constant
+       (small) width all the way down to the narrowest phones — so the
+       logo lockup needs to keep shrinking continuously across this
+       entire range, not just below one arbitrary cutoff. clamp() scales
+       it smoothly with the viewport instead of jumping at a single
+       breakpoint, which is what left mid-size phones unadjusted before. */
+    .nav-logo-icon{
+      width:clamp(2.6rem, 1.9rem + 5vw, 3.9rem);
+      height:clamp(2.6rem, 1.9rem + 5vw, 3.9rem);
+    }
+    #logo{
+      width:clamp(38px, 26px + 4vw, 58px);
+      height:clamp(38px, 26px + 4vw, 58px);
+    }
+    .nav-logo-text{
+      font-size:clamp(0.82rem, 0.68rem + 1vw, 1.05rem);
+    }
+    .nav-logo-text span{
+      font-size:clamp(0.46rem, 0.4rem + 0.4vw, 0.58rem);
+    }
+  }
+
+  @media(max-width:650px){
     .hero h1{font-size:2rem;}
     .footer-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:1fr 1fr;}
+  }
+
+  /* Small phones: give the logo lockup and hamburger a bit more breathing
+     room so nothing crowds the edge of the screen. */
+  @media(max-width:400px){
+    .nav-right{gap:12px;}
+    .theme-toggle{width:32px;height:32px;min-width:32px;}
+    .theme-toggle svg{width:15px;height:15px;}
+    .hero h1{font-size:1.7rem;}
     .gallery-grid{grid-template-columns:1fr;}
+    .modal-img{height:150px;}
+    .modal-body{padding:20px 20px 24px;}
   }

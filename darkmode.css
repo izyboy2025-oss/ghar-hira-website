@@ -1,0 +1,154 @@
+/* =====================================================================
+   DARK MODE — Ghar Hira Technical & Vocational Institute
+   =====================================================================
+   Loaded AFTER style.css and never edits it. Everything here is scoped
+   to `html.dark-mode`, so on a fresh visit (no class present) the site
+   renders exactly as it did before this file existed — light mode is
+   the default, full stop. The class is only ever added by the visitor
+   tapping the theme toggle (bottom-left floating button), and is
+   remembered via localStorage for their next visit.
+
+   Approach: style.css already drives almost every color through CSS
+   variables (--cream, --white, --text, --green-dark, --gold, etc). A
+   few of those variables are single-purpose (only ever used as a light
+   surface, or only ever used as foreground text) — those are safely
+   redefined below and the whole site repaints correctly through
+   inheritance. A handful of variables are DUAL-purpose in the original
+   stylesheet (e.g. --white is both "card background" AND "white text
+   on the dark green nav/hero/footer") — redefining those globally would
+   break the parts that must stay as they are, so instead the small
+   number of affected selectors are patched individually further down.
+   ===================================================================== */
+
+html.dark-mode {
+  color-scheme: dark;
+
+  /* Safe to redefine globally — each of these is only ever used as a
+     light background or only ever used as body/muted text, never both. */
+  --cream: #101a16;        /* page + section backgrounds (was #FAF7F0) */
+  --cream-dark: #17251f;   /* used only in the About gradient (was #F0EAD8) */
+  --green-light: #16332a;  /* light accent bg → dark tinted accent bg (was #E8F4EE) */
+  --gold-light: #392c11;   /* light gold bg → dark tinted gold bg (was #F5EDD5) */
+  --text: #E7E9E4;         /* body copy + headings that use --text (was #1A1A1A) */
+  --text-muted: #A2ABA4;   /* secondary copy (was #5A5A5A) */
+  --gold: #DCB24C;         /* slightly brighter so it still pops on dark surfaces */
+}
+
+/* --white and --green-dark are intentionally left untouched (see note
+   above) — nav, hero, footer and the Downloads section are already dark
+   green and stay exactly as they are in both modes. */
+
+/* ---------------------------------------------------------------------
+   Card / panel surfaces that used var(--white) as a *light* background.
+   (--white itself can't change globally because it's also plain white
+   text sitting on the nav/hero/footer's permanent dark-green bg.)
+   --------------------------------------------------------------------- */
+html.dark-mode .filter-btn{ background:#161f1b; border-color:#2b3a34; }
+html.dark-mode .course-card{ background:#161f1b; border-color:#2b3a34; }
+html.dark-mode .course-header{ border-bottom-color:#26332d; }
+html.dark-mode .news{ background:var(--cream); }
+html.dark-mode .news-item{ border-color:#2b3a34; }
+html.dark-mode .modal-box{ background:#161f1b; }
+html.dark-mode .modal-close{ background:rgba(20,28,24,0.85); color:var(--gold); }
+html.dark-mode .modal-close:hover{ background:rgba(20,28,24,1); }
+html.dark-mode .contact{ background:var(--cream); }
+html.dark-mode .form-group input,
+html.dark-mode .form-group select,
+html.dark-mode .form-group textarea{
+  background:#141d19; border-color:#33443c; color:var(--text);
+}
+html.dark-mode .form-group input:focus,
+html.dark-mode .form-group select:focus,
+html.dark-mode .form-group textarea:focus{
+  border-color:var(--gold);
+  box-shadow:0 0 8px rgba(220,178,76,0.25);
+}
+
+/* ---------------------------------------------------------------------
+   Text that used var(--green-dark) as a foreground color sitting on a
+   surface that is now dark. --green-dark itself stays put (it still
+   correctly serves as the nav/hero/footer background), so each of
+   these is patched individually rather than via the variable.
+   --------------------------------------------------------------------- */
+html.dark-mode .section-title,
+html.dark-mode .news-main h3,
+html.dark-mode .modal-body h3,
+html.dark-mode .contact-item h4,
+html.dark-mode .form-group label{
+  color:#F3EFE2;
+}
+html.dark-mode .course-link,
+html.dark-mode .news-link{ color:var(--gold); }
+html.dark-mode .pill,
+html.dark-mode .contact-item-icon{ color:#8FD9B4; }
+html.dark-mode .btn-view-all{ border-color:var(--gold); color:var(--gold); }
+html.dark-mode .btn-view-all:hover{ background:var(--gold); border-color:var(--gold); color:#141c18; }
+html.dark-mode .about-badge{
+  background:rgba(16,24,20,0.88); color:var(--gold);
+}
+
+/* ---------------------------------------------------------------------
+   Pastel category tags: light-bg-with-dark-text in light mode needs a
+   dark-bg-with-light-text equivalent in the same hue family so each
+   subject area still reads as its own color at a glance.
+   --------------------------------------------------------------------- */
+html.dark-mode .tag-islamic,
+html.dark-mode .tag-academics{ background:#173628; color:#8FE0B7; }
+html.dark-mode .tag-language{ background:#152A3D; color:#8FC4F2; }
+html.dark-mode .tag-science,
+html.dark-mode .tag-admissions{ background:#3A2E12; color:#F0C868; }
+html.dark-mode .tag-humanities,
+html.dark-mode .tag-competition{ background:#2B1E3D; color:#CBAAF0; }
+html.dark-mode .tag-tech,
+html.dark-mode .tag-facilities{ background:#0F332E; color:#7FE0CE; }
+
+/* ---------------------------------------------------------------------
+   One deliberate exception: .wa-tooltip uses var(--text) as its own
+   dark BACKGROUND with white text. Since --text now resolves to a
+   light color for dark mode, this one spot needs to be patched back
+   to its original near-black/white look so it doesn't invert.
+   --------------------------------------------------------------------- */
+html.dark-mode .wa-tooltip{ background:#1A1A1A; color:#FFFFFF; }
+
+/* ---------------------------------------------------------------------
+   Smooth crossfade whichever direction the visitor switches, and a
+   dark-friendly text-selection color. Not scoped to .dark-mode so the
+   transition applies going both into and out of dark mode.
+   --------------------------------------------------------------------- */
+body, nav, footer, .course-card, .news-item, .news-main, .modal-box,
+.filter-btn, .contact-form, .contact, .news, .programs, .gallery,
+.form-group input, .form-group select, .form-group textarea,
+.doc-card, .about-badge, .pill{
+  transition: background-color 0.35s ease, color 0.35s ease, border-color 0.35s ease;
+}
+
+html.dark-mode ::selection{ background:var(--gold); color:#141c18; }
+
+/* Slightly dim photographic imagery so bright uploads don't glare
+   against the darker chrome around them. */
+html.dark-mode .course-cover img,
+html.dark-mode .news-main-img img,
+html.dark-mode .news-item-thumb img,
+html.dark-mode .modal-img img,
+html.dark-mode .gallery-item img{
+  filter:brightness(0.88);
+}
+
+/* ---------------------------------------------------------------------
+   Custom scrollbar to match the dark surface (Chromium/WebKit + Firefox)
+   --------------------------------------------------------------------- */
+html.dark-mode{ scrollbar-color:#33443c var(--cream); }
+html.dark-mode ::-webkit-scrollbar{ width:11px; }
+html.dark-mode ::-webkit-scrollbar-track{ background:var(--cream); }
+html.dark-mode ::-webkit-scrollbar-thumb{ background:#33443c; border-radius:6px; }
+html.dark-mode ::-webkit-scrollbar-thumb:hover{ background:#425a50; }
+
+/* =====================================================================
+   THEME TOGGLE — the button itself now lives in the navbar (styled in
+   style.css, since it sits on the permanently-dark nav bar in both
+   modes and doesn't need color changes). All that's left here is
+   swapping which icon shows: moon in light mode ("tap to go dark"),
+   sun once dark mode is active ("tap to go light").
+   ===================================================================== */
+html.dark-mode .theme-toggle .icon-moon{ display:none; }
+html.dark-mode .theme-toggle .icon-sun{ display:block; }
